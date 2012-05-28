@@ -18,7 +18,7 @@
         },
         link: function (scope, element, attrs) {
           element.bind('mouseup', function (ev) {
-            console.log('drop');
+            //console.log('drop');
             if (dragging /*&& scope.val !== collection*/) {
               target = true;
               scope.val.push(model);
@@ -26,7 +26,7 @@
             }
           });
           element.bind('mousedown', function (ev) {
-            console.log('drop');
+            //console.log('drop');
             collection = scope.val;
           });
 
@@ -57,7 +57,7 @@
 
           var onUp = function (ev) {
             ev.preventDefault();
-            console.log('drag');
+            //console.log('drag');
 
             if (dragging && target) {
               var i;
@@ -86,13 +86,13 @@
             target = false;
             model = scope.thing;
 
-            console.log('drag');
+            //console.log('drag');
 
             doc.bind('mousemove', onMove);
             doc.bind('mouseup', onUp);
             
             element.css('position', 'absolute');
-            console.log(scope.$index);
+            //console.log(scope.$index);
           });
 
           //onMove({x: 0, y: 0});
