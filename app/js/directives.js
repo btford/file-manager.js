@@ -2,21 +2,32 @@
 
 /* Directives */
 
-(function () {
+//(function () {
 
   var dragging = false,
-    model;
+    model,
+    collection,
+    target;
 
   angular.module('myApp.directives', []).
     directive('droppable', function ($compile) {
       return {
         restrict: 'E',
         scope: {
-          val:'evaluate'
+          val: 'evaluate'
         },
         link: function (scope, element, attrs) {
           element.bind('mouseup', function (ev) {
-            console.log('up');
+            console.log('drop');
+            if (dragging /*&& scope.val !== collection*/) {
+              target = true;
+              scope.val.push(model);
+              scope.$apply();
+            }
+          });
+          element.bind('mousedown', function (ev) {
+            console.log('drop');
+            collection = scope.val;
           });
 
           element.append('<draggable ng-repeat="thing in val">{{thing}}</draggable>');
@@ -46,6 +57,19 @@
 
           var onUp = function (ev) {
             ev.preventDefault();
+            console.log('drag');
+
+            if (dragging && target) {
+              var i;
+              for (i = 0; i < collection.length; i++) {
+                if (collection[i] === scope.thing) {
+                  collection.splice(i, 1);
+                  break;
+                }
+              }
+              scope.$apply();
+              dragging = false;
+            }
 
             // reset
             element.css('position', null);
@@ -58,18 +82,23 @@
 
           element.bind('mousedown', function (ev) {
             ev.preventDefault();
+            dragging = true;
+            target = false;
+            model = scope.thing;
+
+            console.log('drag');
 
             doc.bind('mousemove', onMove);
             doc.bind('mouseup', onUp);
             
             element.css('position', 'absolute');
+            console.log(scope.$index);
           });
 
           //onMove({x: 0, y: 0});
-          console.log(scope);
 
         }
       };
     });
 
-}());
+//}());
