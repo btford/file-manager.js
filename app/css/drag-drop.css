@@ -1,0 +1,15 @@
+draggable {
+  cursor: pointer;
+  padding: 20px;
+  margin: 5px;
+  background-color: rgb(200,200,200);
+  display: inline-block;
+}
+
+droppable {
+  background-color: rgb(100,100,100);
+  display: block;
+
+  width: 400px;
+  height: 200px;
+}
