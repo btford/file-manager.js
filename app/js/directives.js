@@ -67,8 +67,10 @@
                   break;
                 }
               }
-              scope.$apply();
               dragging = false;
+              target = false;
+
+              scope.$apply();
             }
 
             // reset
@@ -83,7 +85,6 @@
           element.bind('mousedown', function (ev) {
             ev.preventDefault();
             dragging = true;
-            target = false;
             model = scope.thing;
 
             //console.log('drag');
